@@ -29,12 +29,13 @@ def main():
     os.environ["RANCHER_SECRET_KEY"] = vargs['secret_key']
 
     try:
-        rc_args = [
-            "rancher-compose", "-f", compose_file, "-p", stack, "up", "-d",
+        rancher_compose_command = [
+            "rancher-compose", "-f", compose_file, "-p", stack, "up", "-d", "--force-upgrade",
         ]
         if services:
-            rc_args.append(services)
-        subprocess.check_call(rc_args)
+            rancher_compose_command.append(services)
+        print(' '.join(rancher_compose_command)
+        subprocess.check_call(rancher_compose_command)
     finally:
         # Unset environmental variables, no point in them hanging about
         del os.environ['RANCHER_URL']
