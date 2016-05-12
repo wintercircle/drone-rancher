@@ -41,15 +41,23 @@ def main():
         compose_file_args = create_arg_flag("-f", compose_file)
         stack_args = create_arg_flag("-p", stack)
         up_args = ["up", "-d", "--upgrade", "--pull"]
+        confirm_args = ["up", "-d", "--upgrade", "--confirm-upgrade"]
 
-        rancher_compose_cmd = \
+        rancher_compose_upgrade_cmd = \
             base_command + rancher_file_args + compose_file_args + stack_args + up_args
-        if services:
-            rancher_compose_cmd.append(services)
 
-        filter(None, rancher_compose_cmd)
-        print(' '.join(rancher_compose_cmd))
-        subprocess.check_call(rancher_compose_cmd)
+        rancher_compose_confirm_cmd = \
+            base_command + rancher_file_args + compose_file_args + stack_args + confirm_args
+
+        if services:
+            rancher_compose_upgrade_cmd.append(services)
+            rancher_compose_confirm_cmd.append(services)
+        filter(None, rancher_compose_upgrade_cmd)
+        filter(None, rancher_compose_confirm_cmd)
+        print(' '.join(rancher_compose_upgrade_cmd))
+        print(' '.join(rancher_compose_confirm_cmd))
+        subprocess.check_call(rancher_compose_upgrade_cmd)
+        subprocess.check_call(rancher_compose_confirm_cmd)
     finally:
         # Unset environmental variables, no point in them hanging about
         del os.environ['RANCHER_URL']
