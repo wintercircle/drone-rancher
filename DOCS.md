@@ -8,8 +8,10 @@ The following parameters are used to configuration the plugin's behavior:
 * **secret_key** - The associated secret key with the given API access key
 
 **Optional**
-* **compose_file** - The compose file to use to deploy services to rancher
+* **compose_file** - The docker-compose file to use to deploy services to rancher
   * If not provided leaves defaults to docker-compose.yml
+* **rancher_file** - The rancher-compose file to use to deploy services to rancher
+  * If not provided does not add `--rancher-file <file>` to command args
 * **stack** - The stack to deploy
   * If not provided defaults to name of repository
 * **services** - A space-separated list of services declared in the docker-compose file to upgrade
@@ -26,6 +28,7 @@ deploy:
     url: $$RANCHER_URL
     access_key: $$RANCHER_ACCESS_KEY
     secret_key: $$RANCHER_SECRET_KEY
+    rancher_file: config/prod/docker-compose.yml
     compose_file: config/prod/docker-compose.yml
     services: web worker
     stack: api-{{TAG}}
