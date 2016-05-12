@@ -3,7 +3,7 @@
 Deploy builds to a Rancher orchestrated stack using rancher-compose
 """
 import drone
-import requests
+import subprocess
 
 
 def main():
@@ -17,9 +17,10 @@ def main():
 
     # Formulate the POST request.
     data = payload["build"]
-    response = requests.get(vargs["url"], data=data)
-    response.raise_for_status()
-    print(response.json())
+    print(payload)
+    subprocess.call(["pwd"])
+    subprocess.call(["env"])
+    subprocess.call(["rancher-compose", "--help"])
 
 
 if __name__ == "__main__":
