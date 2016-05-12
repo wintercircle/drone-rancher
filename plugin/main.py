@@ -30,11 +30,11 @@ def main():
 
     try:
         rancher_compose_command = [
-            "rancher-compose", "-f", compose_file, "-p", stack, "up", "-d", "--force-upgrade",
+            "rancher-compose", "-f", compose_file, "-p", stack, "up", "-d", "--upgrade", "--pull",
         ]
         if services:
             rancher_compose_command.append(services)
-        print(' '.join(rancher_compose_command)
+        print(' '.join(rancher_compose_command))
         subprocess.check_call(rancher_compose_command)
     finally:
         # Unset environmental variables, no point in them hanging about
