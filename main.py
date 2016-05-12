@@ -10,7 +10,7 @@ import subprocess
 
 def create_arg_flag(flag, value):
     """Return an arg list if a value exists, otherwise return None."""
-    return [flag, value] if value else None
+    return [flag, value] if value else []
 
 
 def main():
@@ -23,10 +23,10 @@ def main():
     os.chdir(deploy_path)
 
     # Optional fields
-    compose_file = vargs.get('compose_file', 'docker-compose.yml')
+    compose_file = vargs.get('compose_file')
     rancher_file = vargs.get('rancher_file')
     stack = vargs.get('stack', payload['repo']['name'])
-    services = vargs.get('services', '')
+    services = vargs.get('services')
 
     # Set Required fields for rancher-compose to work
     # Should raise an error if they are not declared
@@ -41,18 +41,13 @@ def main():
         compose_file_args = create_arg_flag("-f", compose_file)
         stack_args = create_arg_flag("-p", stack)
         up_args = ["up", "-d", "--upgrade", "--pull"]
-        services_args = services
 
-        rancher_compose_args = [
-            base_command,
-            rancher_file_args,
-            compose_file_args,
-            stack_args,
-            up_args,
-            services_args
-        ]
-        rancher_compose_cmd = filter(None, rancher_compose_args)
+        rancher_compose_cmd = \
+            base_command + rancher_file_args + compose_file_args + stack_args + up_args
+        if services:
+            rancher_compose_cmd.append(services)
 
+        filter(None, rancher_compose_cmd)
         print(' '.join(rancher_compose_cmd))
         subprocess.check_call(rancher_compose_cmd)
     finally:

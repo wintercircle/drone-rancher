@@ -20,6 +20,6 @@ RUN apk-install python3
 
 COPY requirements.txt /opt/drone/
 RUN pip3 install -r requirements.txt
-COPY plugin /opt/drone/plugin
+COPY main.py /opt/drone/
 
-ENTRYPOINT ["python3", "/opt/drone/plugin/main.py"]
+CMD ["python3", "/opt/drone/main.py"]
