@@ -28,15 +28,16 @@ def main():
     os.environ["RANCHER_ACCESS_KEY"] = vargs['access_key']
     os.environ["RANCHER_SECRET_KEY"] = vargs['secret_key']
 
-    rc_args = [
-        "rancher-compose", "-f", compose_file, "-p", stack, "up", services,
-    ]
-    subprocess.call(rc_args)
-
-    # Unset environmental variables, no point in them hanging about
-    del os.environ['RANCHER_URL']
-    del os.environ['RANCHER_ACCESS_KEY']
-    del os.environ['RANCHER_SECRET_KEY']
+    try:
+        rc_args = [
+            "rancher-compose", "-f", compose_file, "-p", stack, "up", services,
+        ]
+        subprocess.check_call(rc_args)
+    finally:
+        # Unset environmental variables, no point in them hanging about
+        del os.environ['RANCHER_URL']
+        del os.environ['RANCHER_ACCESS_KEY']
+        del os.environ['RANCHER_SECRET_KEY']
 
 
 if __name__ == "__main__":
