@@ -14,7 +14,9 @@ def main():
     vargs = payload["vargs"]
 
     # Required fields should raise an error
-    url, key, secret = vargs['url'], vargs['access_key'], vargs['secret_key']
+    os.environ["RANCHER_URL"] = vargs['url']
+    os.environ["RANCHER_ACCESS_KEY"] = vargs['access_key']
+    os.environ["RANCHER_SECRET_KEY"] = vargs['secret_key']
 
     # Optional fields
     compose_file = vargs.get('compose_file', 'docker-compose.yml')
