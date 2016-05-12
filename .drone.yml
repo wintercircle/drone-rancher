@@ -1,0 +1,8 @@
+plugin:
+  name: Drone Rancher
+  desc: Deploy builds to a Rancher orchestrated stack using rancher-compose
+  type: deploy
+  image: wintercircle/drone-rancher
+  labels:
+    - orchestration
+    - deploy

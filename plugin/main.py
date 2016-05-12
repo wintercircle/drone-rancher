@@ -15,12 +15,14 @@ def main():
     # vargs are where the values passed in the YaML reside.
     vargs = payload["vargs"]
 
+    # Required fields should raise an error
+    url, key, secret = vargs['url'], vargs['access_key'], vargs['secret_key']
+
     # Formulate the POST request.
     data = payload["build"]
     print(payload)
     subprocess.call(["pwd"])
-    subprocess.call(["env"])
-    subprocess.call(["rancher-compose", "--help"])
+    subprocess.call(["ls", "-l"])
 
 
 if __name__ == "__main__":
