@@ -30,8 +30,10 @@ def main():
 
     try:
         rc_args = [
-            "rancher-compose", "-f", compose_file, "-p", stack, "up", services,
+            "rancher-compose", "-f", compose_file, "-p", stack, "up"
         ]
+        if services:
+            rc_args.append(services)
         subprocess.check_call(rc_args)
     finally:
         # Unset environmental variables, no point in them hanging about
