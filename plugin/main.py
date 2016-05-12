@@ -9,23 +9,26 @@ import subprocess
 
 
 def main():
-    """
-    The main entrypoint for the plugin.
-    """
-    # Retrives plugin input from stdin/argv, parses the JSON, returns a dict.
+    """The main entrypoint for the plugin."""
     payload = drone.plugin.get_input()
-    # vargs are where the values passed in the YaML reside.
     vargs = payload["vargs"]
 
     # Required fields should raise an error
     url, key, secret = vargs['url'], vargs['access_key'], vargs['secret_key']
 
+    # Optional fields
+    compose_file = vargs.get('compose_file', 'docker-compose.yml')
+    stack = vargs.get('stack', vargs['repo']['name'])
+    services = vargs.get('services', '')
+
     # Change directory
     deploy_path = payload["workspace"]["path"]
     os.chdir(deploy_path)
 
-    subprocess.call(["pwd"])
-    subprocess.call(["ls", "-l"])
+    rc_args = [
+        "rancher-compose", "-f", compose_file, "-p", stack, "up", services,
+    ]
+    subprocess.call(rc_args)
 
 
 if __name__ == "__main__":

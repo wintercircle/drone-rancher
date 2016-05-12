@@ -10,10 +10,10 @@ The following parameters are used to configuration the plugin's behavior:
 **Optional**
 * **compose_file** - The compose file with which to use to deploy services to rancher
   * If not provided leaves out of the call, rancher-compose will use docker-compose.yml in that case
-* **services** - A comma separated list of services declared in the docker-compose file to upgrade
-  * If not provided defaults to all
 * **stack** - The stack to deploy
   * If not provided defaults to name of repository
+* **services** - A space-separated list of services declared in the docker-compose file to upgrade
+  * If not provided defaults to all
 
 
 The following is a sample drone-rancher configuration in your 
@@ -27,6 +27,6 @@ notify:
     access_key: $$RANCHER_ACCESS_KEY
     secret_key: $$RANCHER_SECRET_KEY
     compose_file: config/prod/docker-compose.yml
-    services: web
+    services: web worker
     stack: api-{{TAG}}
 ```
