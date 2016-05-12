@@ -18,7 +18,7 @@ def main():
 
     # Optional fields
     compose_file = vargs.get('compose_file', 'docker-compose.yml')
-    stack = vargs.get('stack', vargs['repo']['name'])
+    stack = vargs.get('stack', payload['repo']['name'])
     services = vargs.get('services', '')
 
     # Change directory
