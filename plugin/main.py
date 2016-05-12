@@ -30,7 +30,7 @@ def main():
 
     try:
         rc_args = [
-            "rancher-compose", "-d", "-f", compose_file, "-p", stack, "up"
+            "rancher-compose", "-f", compose_file, "-p", stack, "up", "-d",
         ]
         if services:
             rc_args.append(services)
