@@ -22,4 +22,4 @@ COPY requirements.txt /opt/drone/
 RUN pip3 install -r requirements.txt
 COPY main.py /opt/drone/
 
-ENTRYPOINT ["python3", "/opt/drone/main.py"]
+#ENTRYPOINT ["python3", "/opt/drone/main.py"]

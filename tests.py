@@ -28,7 +28,10 @@ class PluginTest(TestCase):
                 "secret_key": "$$RANCHER_SECRET_KEY",
                 "compose_file": ".config/dev/docker-compose.yml",
                 "rancher_file": ".config/dev/rancher-compose.yml",
-                "services": "web"
+                "services": "web db",
+                # "force": "true",
+                "confirm": "true",
+                "pull": "true",
             }
         }
         main()

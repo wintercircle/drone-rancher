@@ -1,0 +1,5 @@
+plugin:
+  build: .
+  command: sh
+  volumes:
+  - .:/opt/drone
