@@ -10,8 +10,11 @@ ENV RANCHER_COMPOSE_VERSION=0.8.1
 RUN mkdir -p /opt/drone
 WORKDIR /opt/drone
 
-RUN apk-install openssl
-RUN wget -O rancher-compose.tar.gz https://github.com/rancher/rancher-compose/releases/download/v$RANCHER_COMPOSE_VERSION/rancher-compose-linux-amd64-v$RANCHER_COMPOSE_VERSION.tar.gz
+RUN apk-install openssl && \
+    wget -O rancher-compose.tar.gz https://github.com/rancher/rancher-compose/releases/download/v$RANCHER_COMPOSE_VERSION/rancher-compose-linux-amd64-v$RANCHER_COMPOSE_VERSION.tar.gz && \
+    tar -zxvf rancher-compose.tar.gz && \
+    mv ./rancher-compose-v$RANCHER_COMPOSE_VERSION/rancher-compose /usr/bin/ && \
+    rm -rf rancher-compose*
 
 RUN apk-install python3
 
@@ -19,4 +22,4 @@ COPY requirements.txt /opt/drone/
 RUN pip3 install -r requirements.txt
 COPY plugin /opt/drone/plugin
 
-#ENTRYPOINT ["python3", "/opt/drone/plugin/main.py"]
+ENTRYPOINT ["python3", "/opt/drone/plugin/main.py"]

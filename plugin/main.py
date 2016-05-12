@@ -17,10 +17,9 @@ def main():
 
     # Formulate the POST request.
     data = payload["build"]
-    print("testing")
-    print(data)
-    response = requests.post(vargs["url"], data=data)
+    response = requests.get(vargs["url"], data=data)
     response.raise_for_status()
+    print(response.json())
 
 
 if __name__ == "__main__":
