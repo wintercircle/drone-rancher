@@ -2,6 +2,8 @@
 """
 Deploy builds to a Rancher orchestrated stack using rancher-compose
 """
+import os
+
 import drone
 import subprocess
 
@@ -18,9 +20,10 @@ def main():
     # Required fields should raise an error
     url, key, secret = vargs['url'], vargs['access_key'], vargs['secret_key']
 
-    # Formulate the POST request.
-    data = payload["build"]
-    print(payload)
+    # Change directory
+    deploy_path = payload["workspace"]["path"]
+    os.chdir(deploy_path)
+
     subprocess.call(["pwd"])
     subprocess.call(["ls", "-l"])
 
