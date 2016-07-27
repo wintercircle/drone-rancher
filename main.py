@@ -33,7 +33,7 @@ def main():
     services = vargs.get('services', '')
     force_upgrade = str_to_bool(vargs.get('force', 'false'))
     confirm_upgrade = str_to_bool(vargs.get('confirm', 'false'))
-    pull = str_to_bool(vargs.get('pull', 'false'))
+    pull = str_to_bool(vargs.get('always_pull', 'false'))
 
     # Set Required fields for rancher-compose to work
     # Should raise an error if they are not declared

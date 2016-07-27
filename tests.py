@@ -31,7 +31,7 @@ class PluginTest(TestCase):
                 "services": "web db",
                 # "force": "true",
                 "confirm": "true",
-                "pull": "true",
+                "always_pull": "true",
             }
         }
         main()
