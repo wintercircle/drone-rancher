@@ -5,8 +5,8 @@
 FROM gliderlabs/alpine:3.2
 MAINTAINER Lewis Taylor <lewis@dangerfarms.com>
 
-ENV VERSION=1.0.0
-ENV RANCHER_COMPOSE_VERSION=0.12.1
+ENV VERSION=0.12.5
+ENV RANCHER_COMPOSE_VERSION=0.12.5
 
 RUN mkdir -p /opt/drone
 WORKDIR /opt/drone
