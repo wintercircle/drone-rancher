@@ -13,3 +13,4 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     repo: wintercircle/drone-rancher
     tag: testdrone8
+
