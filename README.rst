@@ -3,77 +3,29 @@ drone-rancher
 
 Deploy builds to a Rancher orchestrated stack using rancher-compose
 
+Build
+-----
+
+docker build -t wintercircle/drone-rancher .
+docker push wintercircle/drone-rancher
+
 Overview
 --------
 
-Run the plugin directly after installing requirements:
+Execute from the working directory:
 
-.. code-block:: bash
-
-    python plugin/main.py <<EOF
-    {
-        "repo" : {
-            "owner": "foo",
-            "name": "bar",
-            "full_name": "foo/bar"
-        },
-        "system": {
-            "link_url": "http://drone.mycompany.com"
-        },
-        "build" : {
-            "number": 22,
-            "status": "success",
-            "started_at": 1421029603,
-            "finished_at": 1421029813,
-            "commit": "9f2849d5",
-            "branch": "master",
-            "message": "Update the Readme",
-            "author": "johnsmith",
-            "author_email": "john.smith@gmail.com"
-        },
-        "vargs": {
-            "room_auth_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "room_id_or_name": 1234567,
-            "message_notify": true
-        }
-    }
-    EOF
-
-Docker
-------
-
-Alternatively, run the plugin directly from a built Docker image:
-
-.. code-block:: bash
-
-    docker run -i dangerfarms/drone-rancher <<EOF
-    {
-        "repo" : {
-            "owner": "foo",
-            "name": "bar",
-            "full_name": "foo/bar"
-        },
-        "system": {
-            "link_url": "http://drone.mycompany.com"
-        },
-        "build" : {
-            "number": 22,
-            "status": "success",
-            "started_at": 1421029603,
-            "finished_at": 1421029813,
-            "commit": "9f2849d5",
-            "branch": "master",
-            "message": "Update the Readme",
-            "author": "johnsmith",
-            "author_email": "john.smith@gmail.com"
-        },
-        "vargs": {
-            "room_auth_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "room_id_or_name": 1234567,
-            "message_notify": true
-        }
-    }
-    EOF
+docker run --rm \
+  -e PLUGIN_COMPOSE_FILE=docker-compose.yml \
+  -e PLUGIN_RANCHER_FILE=rancher-compose.yml \
+  -e PLUGIN_SERVICES=web \
+  -e PLUGIN_FORCE=true \
+  -e PLUGIN_CONFIRM=true \
+  -e PLUGIN_ALWAYS_PULL=true \
+  -e PLUGIN_URL=https://rancher.url/ \
+  -e DRONE_REPO_NAME=my/repo \
+  -e RANCHER_ACCESS_KEY=key \
+  -e RANCHER_SECRET_KEY=secret \
+  wintercircle/drone-rancher
 
 
 License
