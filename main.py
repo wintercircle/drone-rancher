@@ -4,7 +4,6 @@ Deploy builds to a Rancher orchestrated stack using rancher-compose
 """
 import os
 
-import drone
 import subprocess
 
 
@@ -19,27 +18,19 @@ def str_to_bool(value):
 
 def main():
     """The main entrypoint for the plugin."""
-    payload = drone.plugin.get_input()
-    vargs = payload["vargs"]
-
-    # Change directory to deploy path
-    deploy_path = payload["workspace"]["path"]
-    os.chdir(deploy_path)
-
     # Optional fields
-    compose_file = vargs.get('compose_file')
-    rancher_file = vargs.get('rancher_file')
-    stack = vargs.get('stack', payload['repo']['name'])
-    services = vargs.get('services', '')
-    force_upgrade = str_to_bool(vargs.get('force', 'false'))
-    confirm_upgrade = str_to_bool(vargs.get('confirm', 'false'))
-    pull = str_to_bool(vargs.get('always_pull', 'false'))
+    compose_file = os.environ["PLUGIN_COMPOSE_FILE"]
+    rancher_file = os.environ["PLUGIN_RANCHER_FILE"]
+    stack = os.environ["DRONE_REPO_NAME"]
+    services = os.environ.get("PLUGIN_SERVICES", '')
+    force_upgrade = str_to_bool(os.environ.get('PLUGIN_FORCE', 'false'))
+    confirm_upgrade = str_to_bool(os.environ.get('PLUGIN_CONFIRM', 'false'))
+    pull = str_to_bool(os.environ.get('PLUGIN_ALWAYS_PULL', 'false'))
 
     # Set Required fields for rancher-compose to work
     # Should raise an error if they are not declared
-    os.environ["RANCHER_URL"] = vargs['url']
-    os.environ["RANCHER_ACCESS_KEY"] = vargs['access_key']
-    os.environ["RANCHER_SECRET_KEY"] = vargs['secret_key']
+    
+    os.environ["RANCHER_URL"] = os.environ.get('PLUGIN_URL')
 
     try:
         base_rancher_compose_cmd = \
@@ -68,8 +59,6 @@ def main():
     finally:
         # Unset environmental variables, no point in them hanging about
         del os.environ['RANCHER_URL']
-        del os.environ['RANCHER_ACCESS_KEY']
-        del os.environ['RANCHER_SECRET_KEY']
 
 
 if __name__ == "__main__":
