@@ -14,6 +14,7 @@ Overview
 
 Execute from the working directory:
 
+```
 docker run --rm \
   -e PLUGIN_COMPOSE_FILE=docker-compose.yml \
   -e PLUGIN_RANCHER_FILE=rancher-compose.yml \
@@ -26,6 +27,7 @@ docker run --rm \
   -e RANCHER_ACCESS_KEY=key \
   -e RANCHER_SECRET_KEY=secret \
   wintercircle/drone-rancher
+```
 
 
 License
