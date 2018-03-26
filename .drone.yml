@@ -6,3 +6,12 @@ plugin:
   labels:
     - orchestration
     - deploy
+
+pipeline:
+  docker:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password ]
+    repo: wintercircle/drone-rancher
+		tag: ${DRONE_TAG}
+    when:
+      event: tag
