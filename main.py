@@ -24,7 +24,7 @@ def main():
     use_tag_in_stack = str_to_bool(os.environ.get('PLUGIN_USE_TAG_IN_STACK', 'false'))
     stack = os.environ["PLUGIN_STACK"] or os.environ["DRONE_REPO_NAME"]
     if use_tag_in_stack and os.environ["DRONE_TAG"]:
-        stack.append('-', os.environ["DRONE_TAG"])
+        stack = '{}-{}'.format(stack, os.environ["DRONE_TAG"])
 
     services = os.environ.get("PLUGIN_SERVICES", '')
     force_upgrade = str_to_bool(os.environ.get('PLUGIN_FORCE', 'false'))
