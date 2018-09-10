@@ -27,6 +27,7 @@ def main():
         stack = '{}-{}'.format(stack, os.environ["DRONE_TAG"])
 
     services = os.environ.get("PLUGIN_SERVICES", '')
+    --batch-size
     force_upgrade = str_to_bool(os.environ.get('PLUGIN_FORCE', 'false'))
     confirm_upgrade = str_to_bool(os.environ.get('PLUGIN_CONFIRM', 'false'))
     pull = str_to_bool(os.environ.get('PLUGIN_ALWAYS_PULL', 'false'))
@@ -38,7 +39,7 @@ def main():
 
     try:
         base_rancher_compose_cmd = \
-            "rancher-compose {rancher_file} {compose_file} {stack} up -d {{upgrade}} {{pull}} {{confirm}} {services}".format(
+            "rancher-compose {rancher_file} {compose_file} {stack} up -d --batch-size 1 {{upgrade}} {{pull}} {{confirm}} {services}".format(
                 rancher_file=create_arg_flag("-r", rancher_file),
                 compose_file=create_arg_flag("-f", compose_file),
                 stack=create_arg_flag("-p", stack),
