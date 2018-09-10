@@ -27,7 +27,6 @@ def main():
         stack = '{}-{}'.format(stack, os.environ["DRONE_TAG"])
 
     services = os.environ.get("PLUGIN_SERVICES", '')
-    --batch-size
     force_upgrade = str_to_bool(os.environ.get('PLUGIN_FORCE', 'false'))
     confirm_upgrade = str_to_bool(os.environ.get('PLUGIN_CONFIRM', 'false'))
     pull = str_to_bool(os.environ.get('PLUGIN_ALWAYS_PULL', 'false'))
