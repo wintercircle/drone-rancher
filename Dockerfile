@@ -2,8 +2,7 @@
 #
 #     docker build --rm=true -t dangerfarms/drone-rancher .
 
-FROM gliderlabs/alpine:3.2
-MAINTAINER Lewis Taylor <lewis@dangerfarms.com>
+FROM gliderlabs/alpine:3.8
 
 ENV VERSION=0.12.5
 ENV RANCHER_COMPOSE_VERSION=0.12.5
