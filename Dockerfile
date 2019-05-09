@@ -10,11 +10,9 @@ ENV RANCHER_COMPOSE_VERSION=0.12.5
 RUN mkdir -p /opt/drone
 WORKDIR /opt/drone
 
-#https://github.com/rancher/rancher-compose/releases/download/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
 
 RUN apk add openssl ca-certificates && \
-    #wget -O rancher-compose.tar.gz https://github.com/rancher/rancher-compose/releases/download/v$RANCHER_COMPOSE_VERSION/rancher-compose-linux-amd64-v$RANCHER_COMPOSE_VERSION.tar.gz && \
-    wget -O rancher-compose.tar.gz  https://github.com/rancher/rancher-compose/releases/download/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz  && \
+    wget -O rancher-compose.tar.gz https://github.com/rancher/rancher-compose/releases/download/v$RANCHER_COMPOSE_VERSION/rancher-compose-linux-amd64-v$RANCHER_COMPOSE_VERSION.tar.gz && \
     tar -zxvf rancher-compose.tar.gz && \
     mv ./rancher-compose-v$RANCHER_COMPOSE_VERSION/rancher-compose /usr/bin/ && \
     rm -rf rancher-compose*
