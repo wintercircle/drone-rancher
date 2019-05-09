@@ -22,3 +22,10 @@ pipeline:
     tag: latest
     when:
       branch: master
+  docker-dev:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password ]
+    repo: wintercircle/drone-rancher
+    tag: dev
+    when:
+      branch: development
